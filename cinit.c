@@ -92,7 +92,6 @@ int main(int argc, char *argv[]) {
     printf("Project creation successful!\n\n");
     printf("Execute the project with:\n\n`cd %s`\n`./nob && ./%s\n", path,
            project_name);
-    system(nob_temp_sprintf("cd %s", path));
   } else {
     fprintf(stderr, "Usage: %s <project_name>\n", prog_name);
     return EXIT_FAILURE;
