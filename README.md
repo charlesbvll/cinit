@@ -17,7 +17,7 @@ Afterwards, you can just run the following in order to compile the project:
 ```
 
 > [!NOTE]
-> Running `./nob` will also recompile `nob.c` in case it has change, so `cc nob.c -o nob` shouldn't be necessary afterwards, even if you modify `nob.c`.
+> Running `./nob` will also recompile `nob.c` in case it has changed, so `cc nob.c -o nob` shouldn't be necessary afterwards, even if you modify `nob.c`.
 
 ## Run
 
