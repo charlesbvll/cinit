@@ -2,6 +2,7 @@
 #define NOB_IMPLEMENTATION
 #include "nob.h"
 
+// This should be modified if used on another machine
 #define PROJECTS_ROOT "/Users/main/Documents/perso.nosync"
 
 bool copy_to_proj(const char *file, const char *path) {
@@ -38,6 +39,9 @@ int main(int argc, char *argv[]) {
     if (!copy_to_proj("template.c", path)) {
       return EXIT_FAILURE;
     }
+    if (!copy_to_proj("README.md", path)) {
+      return EXIT_FAILURE;
+    }
 
     const char *src_template = nob_temp_sprintf("%s/template.c", path);
     const char *dst_template = nob_temp_sprintf("%s/%s.c", path, project_name);
@@ -62,7 +66,8 @@ int main(int argc, char *argv[]) {
 
     nob_cmd_append(&cmd, "sed", "-i.bak", "-e",
                    nob_temp_sprintf("s/cinit/%s/g", project_name), ".gitignore",
-                   "nob.c", nob_temp_sprintf("%s.c", project_name));
+                   "nob.c", "README.md",
+                   nob_temp_sprintf("%s.c", project_name));
     if (!nob_cmd_run_sync_and_reset(&cmd)) {
       fprintf(stderr, "Could not replace project name.\n");
       return EXIT_FAILURE;
@@ -75,6 +80,9 @@ int main(int argc, char *argv[]) {
     }
     if (nob_delete_file(".gitignore.bak")) {
       fprintf(stderr, "Could not remove `.gitignore.bak`.\n");
+    }
+    if (nob_delete_file("README.md.bak")) {
+      fprintf(stderr, "Could not remove `README.md.bak`.\n");
     }
 
     nob_cmd_append(&cmd, "cc", "-o", "nob", "nob.c");
